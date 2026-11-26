@@ -1,0 +1,139 @@
+{
+  "config": "{\"version\":\"5.55\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\"}}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Bridge",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.0,
+      "name": "bridge",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"card_closing\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":20,\"z\":0,\"width\":200,\"height\":100}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"FactArrSnapshot.Closing ARR\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"FactArrSnapshot\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Closing ARR\"},\"Name\":\"FactArrSnapshot.Closing ARR\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 100,
+          "width": 200,
+          "x": 20,
+          "y": 20,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"card_fx\",\"layouts\":[{\"id\":0,\"position\":{\"x\":240,\"y\":20,\"z\":0,\"width\":200,\"height\":100}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"FactArrMovement.FX Impact\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t1\",\"Entity\":\"FactArrMovement\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t1\"}},\"Property\":\"FX Impact\"},\"Name\":\"FactArrMovement.FX Impact\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 100,
+          "width": 200,
+          "x": 240,
+          "y": 20,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"card_nrr\",\"layouts\":[{\"id\":0,\"position\":{\"x\":460,\"y\":20,\"z\":0,\"width\":200,\"height\":100}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"FactArrSnapshot.NRR TTM\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"FactArrSnapshot\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"NRR TTM\"},\"Name\":\"FactArrSnapshot.NRR TTM\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 100,
+          "width": 200,
+          "x": 460,
+          "y": 20,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"card_grr\",\"layouts\":[{\"id\":0,\"position\":{\"x\":680,\"y\":20,\"z\":0,\"width\":200,\"height\":100}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"FactArrSnapshot.GRR TTM\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"FactArrSnapshot\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"GRR TTM\"},\"Name\":\"FactArrSnapshot.GRR TTM\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 100,
+          "width": 200,
+          "x": 680,
+          "y": 20,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"card_logo\",\"layouts\":[{\"id\":0,\"position\":{\"x\":900,\"y\":20,\"z\":0,\"width\":200,\"height\":100}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"FactArrMovement.Logo Churn\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t1\",\"Entity\":\"FactArrMovement\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t1\"}},\"Property\":\"Logo Churn\"},\"Name\":\"FactArrMovement.Logo Churn\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 100,
+          "width": 200,
+          "x": 900,
+          "y": 20,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"closing_trend\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":140,\"z\":0,\"width\":1240,\"height\":220}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimDate.month_label\"}],\"Y\":[{\"queryRef\":\"FactArrSnapshot.Closing ARR\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t3\",\"Entity\":\"DimDate\",\"Type\":0},{\"Name\":\"t0\",\"Entity\":\"FactArrSnapshot\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t3\"}},\"Property\":\"month_label\"},\"Name\":\"DimDate.month_label\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Closing ARR\"},\"Name\":\"FactArrSnapshot.Closing ARR\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 220,
+          "width": 1240,
+          "x": 20,
+          "y": 140,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"bridge_table\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":380,\"z\":0,\"width\":1240,\"height\":320}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"DimDate.month_label\"},{\"queryRef\":\"FactArrSnapshot.Opening ARR\"},{\"queryRef\":\"FactArrMovement.New ARR\"},{\"queryRef\":\"FactArrMovement.Expansion ARR\"},{\"queryRef\":\"FactArrMovement.Contraction ARR\"},{\"queryRef\":\"FactArrMovement.Churned ARR\"},{\"queryRef\":\"FactArrMovement.Reactivated ARR\"},{\"queryRef\":\"FactArrMovement.FX Impact\"},{\"queryRef\":\"FactArrSnapshot.Closing ARR\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t3\",\"Entity\":\"DimDate\",\"Type\":0},{\"Name\":\"t0\",\"Entity\":\"FactArrSnapshot\",\"Type\":0},{\"Name\":\"t1\",\"Entity\":\"FactArrMovement\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t3\"}},\"Property\":\"month_label\"},\"Name\":\"DimDate.month_label\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Opening ARR\"},\"Name\":\"FactArrSnapshot.Opening ARR\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t1\"}},\"Property\":\"New ARR\"},\"Name\":\"FactArrMovement.New ARR\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t1\"}},\"Property\":\"Expansion ARR\"},\"Name\":\"FactArrMovement.Expansion ARR\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t1\"}},\"Property\":\"Contraction ARR\"},\"Name\":\"FactArrMovement.Contraction ARR\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t1\"}},\"Property\":\"Churned ARR\"},\"Name\":\"FactArrMovement.Churned ARR\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t1\"}},\"Property\":\"Reactivated ARR\"},\"Name\":\"FactArrMovement.Reactivated ARR\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t1\"}},\"Property\":\"FX Impact\"},\"Name\":\"FactArrMovement.FX Impact\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Closing ARR\"},\"Name\":\"FactArrSnapshot.Closing ARR\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 320,
+          "width": 1240,
+          "x": 20,
+          "y": 380,
+          "z": 0
+        }
+      ],
+      "width": 1280.0
+    },
+    {
+      "config": "{}",
+      "displayName": "Cohorts",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.0,
+      "name": "cohorts",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"nrr_by_cohort\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":20,\"z\":0,\"width\":1240,\"height\":340}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"DimCustomer.cohort\"}],\"Columns\":[{\"queryRef\":\"DimDate.year\"}],\"Values\":[{\"queryRef\":\"FactArrSnapshot.NRR TTM\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t2\",\"Entity\":\"DimCustomer\",\"Type\":0},{\"Name\":\"t3\",\"Entity\":\"DimDate\",\"Type\":0},{\"Name\":\"t0\",\"Entity\":\"FactArrSnapshot\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t2\"}},\"Property\":\"cohort\"},\"Name\":\"DimCustomer.cohort\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t3\"}},\"Property\":\"year\"},\"Name\":\"DimDate.year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"NRR TTM\"},\"Name\":\"FactArrSnapshot.NRR TTM\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 340,
+          "width": 1240,
+          "x": 20,
+          "y": 20,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"retention_trend\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":380,\"z\":0,\"width\":1240,\"height\":320}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimDate.month_label\"}],\"Y\":[{\"queryRef\":\"FactArrSnapshot.NRR TTM\"},{\"queryRef\":\"FactArrSnapshot.GRR TTM\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t3\",\"Entity\":\"DimDate\",\"Type\":0},{\"Name\":\"t0\",\"Entity\":\"FactArrSnapshot\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t3\"}},\"Property\":\"month_label\"},\"Name\":\"DimDate.month_label\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"NRR TTM\"},\"Name\":\"FactArrSnapshot.NRR TTM\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"GRR TTM\"},\"Name\":\"FactArrSnapshot.GRR TTM\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 320,
+          "width": 1240,
+          "x": 20,
+          "y": 380,
+          "z": 0
+        }
+      ],
+      "width": 1280.0
+    },
+    {
+      "config": "{}",
+      "displayName": "Definition sensitivity",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.0,
+      "name": "sensitivity",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"grace_table\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":20,\"z\":0,\"width\":1240,\"height\":220}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"FactGraceSensitivity.grace_days\"},{\"queryRef\":\"FactGraceSensitivity.churned_logos\"},{\"queryRef\":\"FactGraceSensitivity.churn_arr\"},{\"queryRef\":\"FactGraceSensitivity.reactivated_logos\"},{\"queryRef\":\"FactGraceSensitivity.reactivation_arr\"},{\"queryRef\":\"FactGraceSensitivity.grr_ttm_mean\"},{\"queryRef\":\"FactGraceSensitivity.grr_ttm_last\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t5\",\"Entity\":\"FactGraceSensitivity\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"grace_days\"},\"Name\":\"FactGraceSensitivity.grace_days\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"churned_logos\"},\"Name\":\"FactGraceSensitivity.churned_logos\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"churn_arr\"},\"Name\":\"FactGraceSensitivity.churn_arr\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"reactivated_logos\"},\"Name\":\"FactGraceSensitivity.reactivated_logos\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"reactivation_arr\"},\"Name\":\"FactGraceSensitivity.reactivation_arr\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"grr_ttm_mean\"},\"Name\":\"FactGraceSensitivity.grr_ttm_mean\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"grr_ttm_last\"},\"Name\":\"FactGraceSensitivity.grr_ttm_last\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 220,
+          "width": 1240,
+          "x": 20,
+          "y": 20,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"grace_churn\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":260,\"z\":0,\"width\":1240,\"height\":440}}],\"singleVisual\":{\"visualType\":\"clusteredColumnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"FactGraceSensitivity.grace_days\"}],\"Y\":[{\"queryRef\":\"Sum(FactGraceSensitivity.churn_arr)\"},{\"queryRef\":\"Sum(FactGraceSensitivity.reactivation_arr)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t5\",\"Entity\":\"FactGraceSensitivity\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"grace_days\"},\"Name\":\"FactGraceSensitivity.grace_days\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"churn_arr\"}},\"Function\":0},\"Name\":\"Sum(FactGraceSensitivity.churn_arr)\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t5\"}},\"Property\":\"reactivation_arr\"}},\"Function\":0},\"Name\":\"Sum(FactGraceSensitivity.reactivation_arr)\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 440,
+          "width": 1240,
+          "x": 20,
+          "y": 260,
+          "z": 0
+        }
+      ],
+      "width": 1280.0
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+table FactArrSnapshot
+	lineageTag: d87485f9-c125-58d6-b9de-11e622cbfd75
+
+	column customer_id
+		dataType: string
+		lineageTag: 02811892-03c8-5b1e-b89e-ada6cb063130
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column month_end
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 0f513255-4675-5ad6-88da-c89d7d669fa6
+		summarizeBy: none
+		sourceColumn: month_end
+
+	column status
+		dataType: string
+		lineageTag: 49b0c809-e7de-59c4-9234-3c07140a1c49
+		summarizeBy: none
+		sourceColumn: status
+
+	column arr_lc
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 1edd1e15-39c7-5744-939c-6bbba8d65939
+		summarizeBy: sum
+		sourceColumn: arr_lc
+
+	column arr_usd_constant
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 9bb5f655-d532-5c63-ab9c-8e55f99daabb
+		summarizeBy: sum
+		sourceColumn: arr_usd_constant
+
+	column arr_usd_spot
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 8259f361-91b2-5abd-80d3-4ef3da17b940
+		summarizeBy: sum
+		sourceColumn: arr_usd_spot
+
+	measure 'Opening ARR' =
+			VAR _m = MIN ( DimDate[month_end] )
+			RETURN
+			    CALCULATE (
+			        SUM ( FactArrSnapshot[arr_usd_spot] ),
+			        REMOVEFILTERS ( DimDate ),
+			        DimDate[month_end] = EOMONTH ( _m, -1 )
+			    )
+		formatString: $#,0
+		lineageTag: b656e903-ea96-5f07-9236-dc92f10097ea
+
+	measure 'Closing ARR' =
+			VAR _m = MAX ( DimDate[month_end] )
+			RETURN
+			    CALCULATE (
+			        SUM ( FactArrSnapshot[arr_usd_spot] ),
+			        REMOVEFILTERS ( DimDate ),
+			        DimDate[month_end] = _m
+			    )
+		formatString: $#,0
+		lineageTag: ab06eb78-ea95-59af-b2b4-16626314321b
+
+	measure 'NRR TTM' =
+			VAR _m = MAX ( DimDate[month_end] )
+			VAR _p = EOMONTH ( _m, -12 )
+			VAR _base =
+			    FILTER ( VALUES ( DimCustomer[customer_id] ), CALCULATE ( SUM ( FactArrSnapshot[arr_usd_constant] ), REMOVEFILTERS ( DimDate ), DimDate[month_end] = _p ) > 0 )
+			VAR _then =
+			    SUMX ( _base, CALCULATE ( SUM ( FactArrSnapshot[arr_usd_constant] ), REMOVEFILTERS ( DimDate ), DimDate[month_end] = _p ) )
+			VAR _now =
+			    SUMX ( _base, CALCULATE ( SUM ( FactArrSnapshot[arr_usd_constant] ), REMOVEFILTERS ( DimDate ), DimDate[month_end] = _m ) )
+			RETURN
+			    DIVIDE ( _now, _then )
+		formatString: 0.0%
+		lineageTag: bf4870bd-fdb6-56e1-8bc8-711367694aea
+
+	measure 'GRR TTM' =
+			VAR _m = MAX ( DimDate[month_end] )
+			VAR _p = EOMONTH ( _m, -12 )
+			VAR _base =
+			    FILTER ( VALUES ( DimCustomer[customer_id] ), CALCULATE ( SUM ( FactArrSnapshot[arr_usd_constant] ), REMOVEFILTERS ( DimDate ), DimDate[month_end] = _p ) > 0 )
+			VAR _then =
+			    SUMX ( _base, CALCULATE ( SUM ( FactArrSnapshot[arr_usd_constant] ), REMOVEFILTERS ( DimDate ), DimDate[month_end] = _p ) )
+			// a customer with no snapshot row at _m has churned: its ARR now is 0, not BLANK
+			VAR _kept =
+			    SUMX (
+			        _base,
+			        MIN ( COALESCE ( CALCULATE ( SUM ( FactArrSnapshot[arr_usd_constant] ), REMOVEFILTERS ( DimDate ), DimDate[month_end] = _m ), 0 ), COALESCE ( CALCULATE ( SUM ( FactArrSnapshot[arr_usd_constant] ), REMOVEFILTERS ( DimDate ), DimDate[month_end] = _p ), 0 ) )
+			    )
+			RETURN
+			    DIVIDE ( _kept, _then )
+		formatString: 0.0%
+		lineageTag: 352eb63e-849c-5492-a9d2-8e98d331fc32
+
+	partition FactArrSnapshot = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\FactArrSnapshot.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"customer_id", type text}, {"month_end", type date}, {"status", type text}, {"arr_lc", type number}, {"arr_usd_constant", type number}, {"arr_usd_spot", type number}})
+				in
+				    Typed

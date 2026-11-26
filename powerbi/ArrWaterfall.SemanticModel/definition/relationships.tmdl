@@ -1,0 +1,19 @@
+relationship a4d728f2-c25c-5d23-bd05-962dae3f693b
+	fromColumn: FactArrSnapshot.customer_id
+	toColumn: DimCustomer.customer_id
+
+relationship 8a9b9da1-d416-58cb-8da4-e355200bbf3c
+	fromColumn: FactArrSnapshot.month_end
+	toColumn: DimDate.month_end
+
+relationship 9da6a565-f492-5e31-8254-3c29ed2d3617
+	fromColumn: FactArrMovement.customer_id
+	toColumn: DimCustomer.customer_id
+
+relationship 352c7685-646d-537d-bf7d-4ee471c01e2f
+	fromColumn: FactArrMovement.month_end
+	toColumn: DimDate.month_end
+
+relationship ed446abb-3f8b-5e31-b672-36bcc74cd650
+	fromColumn: FactArrMovement.movement_type
+	toColumn: DimMovementType.movement_type

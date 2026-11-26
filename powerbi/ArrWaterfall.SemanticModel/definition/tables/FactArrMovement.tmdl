@@ -1,0 +1,101 @@
+table FactArrMovement
+	lineageTag: 6e3d4eb4-e54d-537c-9a85-aee6785b9357
+
+	column customer_id
+		dataType: string
+		lineageTag: 523f9ae3-f149-5a99-a4fb-2c7ce97b2f70
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column month_end
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: eff70a98-ad1d-502f-aae2-0e4bdd395b55
+		summarizeBy: none
+		sourceColumn: month_end
+
+	column movement_type
+		dataType: string
+		lineageTag: 79e7d036-34f8-5150-8704-5f0ea9ed6501
+		summarizeBy: none
+		sourceColumn: movement_type
+
+	column amount_constant_usd
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 2ae161aa-d678-55de-a252-c1b87c4e19df
+		summarizeBy: sum
+		sourceColumn: amount_constant_usd
+
+	column amount_spot_usd
+		dataType: double
+		formatString: #,0.00
+		lineageTag: a590c8ca-1490-521c-8de6-2d1ea3d32e2f
+		summarizeBy: sum
+		sourceColumn: amount_spot_usd
+
+	measure 'New ARR' =
+			CALCULATE (
+			    SUM ( FactArrMovement[amount_spot_usd] ),
+			    DimMovementType[movement_type] = "new"
+			)
+		formatString: $#,0
+		lineageTag: 56986287-0da5-52af-8c04-a8786552a082
+
+	measure 'Expansion ARR' =
+			CALCULATE (
+			    SUM ( FactArrMovement[amount_spot_usd] ),
+			    DimMovementType[movement_type] = "expansion"
+			)
+		formatString: $#,0
+		lineageTag: 7670ce2c-cfd3-559b-bda4-a43b27ffa589
+
+	measure 'Contraction ARR' =
+			-CALCULATE (
+			    SUM ( FactArrMovement[amount_spot_usd] ),
+			    DimMovementType[movement_type] = "contraction"
+			)
+		formatString: $#,0
+		lineageTag: 2b2cad1d-d0dc-5cf4-a980-5f1b3733d1d6
+
+	measure 'Churned ARR' =
+			-CALCULATE (
+			    SUM ( FactArrMovement[amount_spot_usd] ),
+			    DimMovementType[movement_type] = "churn"
+			)
+		formatString: $#,0
+		lineageTag: 056d4872-ec62-5069-a134-4ee7f42d3104
+
+	measure 'Reactivated ARR' =
+			CALCULATE (
+			    SUM ( FactArrMovement[amount_spot_usd] ),
+			    DimMovementType[movement_type] = "reactivation"
+			)
+		formatString: $#,0
+		lineageTag: 56ca9aa1-c88f-5eff-84ee-5bd4799a67a7
+
+	measure 'FX Impact' =
+			CALCULATE (
+			    SUM ( FactArrMovement[amount_spot_usd] ),
+			    DimMovementType[movement_type] = "fx"
+			)
+		formatString: $#,0
+		lineageTag: a26590a0-f215-542e-81d1-44ceacba35b5
+
+	measure 'Logo Churn' =
+			CALCULATE (
+			    DISTINCTCOUNT ( FactArrMovement[customer_id] ),
+			    DimMovementType[movement_type] = "churn"
+			)
+		formatString: 0
+		lineageTag: d5ca6bc8-b138-5aad-b069-2ded6643f443
+
+	partition FactArrMovement = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\FactArrMovement.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"customer_id", type text}, {"month_end", type date}, {"movement_type", type text}, {"amount_constant_usd", type number}, {"amount_spot_usd", type number}})
+				in
+				    Typed

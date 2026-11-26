@@ -1,0 +1,6 @@
+customer_id,segment,currency,first_contract_date
+F1,SMB,USD,2024-04-01
+F2,Mid-market,USD,2024-09-01
+F3,Mid-market,EUR,2024-06-01
+F4,SMB,USD,2024-01-01
+F5,SMB,USD,2025-07-01

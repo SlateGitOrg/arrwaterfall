@@ -1,0 +1,68 @@
+table FactGraceSensitivity
+	lineageTag: 696ac23c-f6a8-54d8-acf1-eeeec331c416
+
+	column grace_days
+		dataType: int64
+		formatString: 0
+		lineageTag: d9c21a42-8657-547d-a8a1-314e8a443ed0
+		summarizeBy: none
+		sourceColumn: grace_days
+
+	column churned_logos
+		dataType: int64
+		formatString: 0
+		lineageTag: f7160020-d4c5-5608-b938-67b3aa54612b
+		summarizeBy: none
+		sourceColumn: churned_logos
+
+	column churn_arr
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 67f1dd0d-f3b9-52ad-b0c1-2910076ff1a1
+		summarizeBy: sum
+		sourceColumn: churn_arr
+
+	column reactivated_logos
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ad56ff9-5272-5f0b-9e31-3fb3ab8c2529
+		summarizeBy: none
+		sourceColumn: reactivated_logos
+
+	column reactivation_arr
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 5458ce6e-8b5c-5438-bc9a-8fc225a25ad5
+		summarizeBy: sum
+		sourceColumn: reactivation_arr
+
+	column grr_ttm_last
+		dataType: double
+		formatString: #,0.00
+		lineageTag: a6e69fc8-bf68-5003-a08f-3d6d02aa2b09
+		summarizeBy: sum
+		sourceColumn: grr_ttm_last
+
+	column grr_ttm_mean
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 879ade3a-42f8-5b2a-8213-93a4c3ca2f0e
+		summarizeBy: sum
+		sourceColumn: grr_ttm_mean
+
+	column nrr_ttm_last
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 24e7f9ac-7cac-596f-a089-1f95751cdf83
+		summarizeBy: sum
+		sourceColumn: nrr_ttm_last
+
+	partition FactGraceSensitivity = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\FactGraceSensitivity.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"grace_days", Int64.Type}, {"churned_logos", Int64.Type}, {"churn_arr", type number}, {"reactivated_logos", Int64.Type}, {"reactivation_arr", type number}, {"grr_ttm_last", type number}, {"grr_ttm_mean", type number}, {"nrr_ttm_last", type number}})
+				in
+				    Typed

@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "arrwaterfall"
+version = "0.1.0"
+description = "A SaaS ARR bridge with a grace window for late renewals, FX as its own line, and a validated Power BI project."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "arrwaterfall contributors" }]
+dependencies = [
+    "duckdb>=1.1",
+    "pandas>=2.2",
+    "typer>=0.12",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pyyaml>=6",
+]
+
+[project.scripts]
+arrwaterfall = "arrwaterfall.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/arrwaterfall"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["error"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

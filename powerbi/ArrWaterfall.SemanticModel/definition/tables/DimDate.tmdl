@@ -1,0 +1,45 @@
+table DimDate
+	lineageTag: d7116e1e-879a-5287-8086-0704bf58fe0e
+
+	column month_end
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: ecf04307-1f68-5b3c-a7e5-3889e57992da
+		summarizeBy: none
+		sourceColumn: month_end
+
+	column month_idx
+		dataType: int64
+		formatString: 0
+		lineageTag: c21fb52e-2ab9-5a07-aba8-add7beffe4f3
+		summarizeBy: none
+		sourceColumn: month_idx
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c624ffa-84b0-54bf-b217-c81b20e2a790
+		summarizeBy: none
+		sourceColumn: year
+
+	column quarter
+		dataType: string
+		lineageTag: c614d4b7-c0eb-52e1-8b8f-187e131e2b99
+		summarizeBy: none
+		sourceColumn: quarter
+
+	column month_label
+		dataType: string
+		lineageTag: 9e6b21b9-3f62-5ea8-85b5-d667ad1cf7cd
+		summarizeBy: none
+		sourceColumn: month_label
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\DimDate.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"month_end", type date}, {"month_idx", Int64.Type}, {"year", Int64.Type}, {"quarter", type text}, {"month_label", type text}})
+				in
+				    Typed
